@@ -17,10 +17,7 @@ int main(int argc, char *argv[])
     Vector b;
     Vector T;
 
-    cout << "IMPLEMENTACI"<<char(224)<<"N DEL M"<<char(144)<<"TODO DE LOS ELEMENTOS FINITOS\n"
-         << "\t- ECUACIONES DE NAVIER-STOKES\n" << "\t- 2 DIMENSIONES\n"
-         << "\t- FUNCIONES DE FORMA LINEALES\n" << "\t- PESOS DE GALERKIN\n"
-         << "*********************************************************************************\n\n";
+    cout << "METODO DE LOS ELEMENTOS FINITOS EN DOS DIMENSIONES\n CON FUNCIONES DE FORMA LINEALES Y PESOS DE GALERKIN - 00229017\n";
 
     mesh m;
     leerMallayCondiciones(m,filename);
@@ -35,14 +32,10 @@ int main(int argc, char *argv[])
     ensamblaje(m,localKs,localbs,K,b);
     showMatrix(K); showVector(b);
     cout << "******************************\n";
-    //cout << K.size() << " - "<<K.at(0).size()<<"\n";
-    //cout << b.size() <<"\n";
 
     applyDirichlet(m,K,b);
     showMatrix(K); showVector(b);
     cout << "******************************\n";
-    //cout << K.size() << " - "<<K.at(0).size()<<"\n";
-    //cout << b.size() <<"\n";
 
     zeroes(T,b.size());
     calculate(K,b,T);

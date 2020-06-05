@@ -1,9 +1,8 @@
 enum lines {NOLINE,SINGLELINE,DOUBLELINE};
 enum modes {NOMODE,INT_FLOAT,INT_FLOAT_FLOAT,INT_INT_INT_INT};
-enum parameters {ADJECTIVE_VELOCITY,DYNAMIC_VISCOSITY,DENSITY,EXTERNAL_FORCE_X,EXTERNAL_FORCE_Y};
+enum parameters {TAU_PARAM, KAPPA_PARAM, LAMBDA_PARAM, PSIX_PARAM, PSIY_PARAM, DELTA_PARAM, ETA_PARAM};
 enum sizes {NODES,ELEMENTS,DIRICHLET};
 enum coords {EQUIS,YE};
-
 class item{
     protected:
         int id;
@@ -109,20 +108,22 @@ class condition: public item{
 };
 
 class mesh{
-        float parameters[5];
+        float parameters[7];
         int sizes[3];
         node *node_list;
         element *element_list;
         int *indices_dirich;
         condition *dirichlet_list;
-        //condition *neumann_list;
+        
     public:
-        void setParameters(float u_bar,float nu, float rho, float f_x, float f_y){
-            parameters[ADJECTIVE_VELOCITY]=u_bar;
-            parameters[DYNAMIC_VISCOSITY]=nu;
-            parameters[DENSITY]=rho;
-            parameters[EXTERNAL_FORCE_X]=f_x;
-            parameters[EXTERNAL_FORCE_Y]=f_y;
+        void setParameters(float tau, float kappa, float lambda, float psix, float psiy, float delta, float eta){
+            parameters[TAU_PARAM] = tau;
+            parameters[KAPPA_PARAM] = kappa;
+            parameters[LAMBDA_PARAM] = lambda;
+            parameters[PSIX_PARAM] = psix;
+            parameters[PSIY_PARAM] = psiy;
+            parameters[DELTA_PARAM] = delta;
+            parameters[ETA_PARAM] = eta;
         }
         void setSizes(int nnodes,int neltos,int ndirich){
             sizes[NODES] = nnodes;
@@ -161,6 +162,6 @@ class mesh{
         }
         condition getCondition(int i, int type){
             if(type == DIRICHLET) return dirichlet_list[i];
-            //else return neumann_list[i];
+            
         }
 };
